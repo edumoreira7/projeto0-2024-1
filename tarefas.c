@@ -52,14 +52,36 @@ ERROS deletar(Tarefa tarefas[], int *pos){
 ERROS listar(Tarefa tarefas[], int *pos){
     if(*pos == 0)
         return SEM_TAREFAS;
+  
+    char categoria_escolhida[TOTALCAT];
+    printf("Categoria que deseja listar (deixe em branco para listar todas as tarefas): ");
+    fgets(categoria_escolhida, sizeof(categoria_escolhida), stdin); 
 
+  if (categoria_escolhida[strlen(categoria_escolhida) - 1] == '\n') {
+      categoria_escolhida[strlen(categoria_escolhida) - 1] = '\0';
+  }
+
+
+    int encontrou_tarefas = 0;
     for(int i=0; i<*pos; i++){
+      if(strcmp(tarefas[i].categoria, categoria_escolhida) == 10){
         printf("Pos: %d\t", i+1);
         printf("Prioridade: %d\t", tarefas[i].prioridade);
         printf("Categoria: %s", tarefas[i].categoria);
         printf("Descricao: %s\n", tarefas[i].descricao);
+        encontrou_tarefas = 1;
+      }else if (strcmp(categoria_escolhida, "\0") == 0){
+        printf("Pos: %d\t", i+1);
+        printf("Prioridade: %d\t", tarefas[i].prioridade);
+        printf("Categoria: %s", tarefas[i].categoria);
+        printf("Descricao: %s\n", tarefas[i].descricao);
+        encontrou_tarefas = 1;
+      }
     }
-
+    if(encontrou_tarefas == 0){
+      printf("Tarefas dessa categoria não encontradas");
+    }
+  
     return OK;
 }
 
