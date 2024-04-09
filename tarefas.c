@@ -8,16 +8,21 @@ ERROS criar(Tarefa tarefas[], int *pos){
 
     printf("Entre com a prioridade: ");
     scanf("%d", &tarefas[*pos].prioridade);
-    clearBuffer();
-    printf("Entre com a categoria: ");
-    fgets(tarefas[*pos].categoria, 100, stdin);
+    if(tarefas[*pos].prioridade < 1 || tarefas[*pos].prioridade <= 10){
+      clearBuffer();
+      printf("Entre com a categoria: ");
+      fgets(tarefas[*pos].categoria, TOTALCAT, stdin);
 
-    printf("Entre com a descricao: ");
-    fgets(tarefas[*pos].descricao, 300, stdin);
+      printf("Entre com a descricao: ");
+      fgets(tarefas[*pos].descricao, TOTALDESC, stdin);
 
-    *pos = *pos + 1;
+      *pos = *pos + 1;
 
-    return OK;
+      return OK;
+    }else{
+      printf("Entre com uma prioridade de 1 a 10\n");
+    printf("\n");
+    }
 }
 
 ERROS deletar(Tarefa tarefas[], int *pos){
@@ -51,7 +56,7 @@ ERROS listar(Tarefa tarefas[], int *pos){
     for(int i=0; i<*pos; i++){
         printf("Pos: %d\t", i+1);
         printf("Prioridade: %d\t", tarefas[i].prioridade);
-        printf("Categoria: %s\t", tarefas[i].categoria);
+        printf("Categoria: %s", tarefas[i].categoria);
         printf("Descricao: %s\n", tarefas[i].descricao);
     }
 
